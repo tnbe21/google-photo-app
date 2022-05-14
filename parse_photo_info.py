@@ -7,6 +7,7 @@ with open('photo_info_list.csv') as fp:
 
     d5300_focal_length_sum = 0
     d5300_count = 0
+    d5300_focal_length_count_map = {}
 
     xz_2_focal_length_sum = 0
     xz_2_count = 0
@@ -25,6 +26,8 @@ with open('photo_info_list.csv') as fp:
         if 'D5300' in row.get('camera_model'):
             d5300_focal_length_sum += float(focal_length)
             d5300_count += 1
+            d5300_focal_length_count_map.setdefault(focal_length, 0)
+            d5300_focal_length_count_map[focal_length] += 1
 
         if 'XZ-2' in row.get('camera_model'):
             xz_2_focal_length_sum += float(focal_length)
@@ -38,3 +41,6 @@ with open('photo_info_list.csv') as fp:
     print(f'focal length average(35mm equivalent): {focal_length_sum / focal_length_total_count}')
     print(f'focal length count:')
     pprint.pprint(sorted(focal_length_count_map.items(), key=lambda x: -x[1]))
+    print(f'D5300 focal length count:')
+    pprint.pprint(sorted(d5300_focal_length_count_map.items(), key=lambda x: -x[1]))
+
